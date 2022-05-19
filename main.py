@@ -1,4 +1,3 @@
-import os
 import sys
 import datetime
 from dotenv import load_dotenv
@@ -53,15 +52,15 @@ def get_avg_tmp_per_day(city):
     return result
 
 
-def get_avg_tmp_per_city_per_day():
+def get_avg_tmp_per_city_per_day(request):
     result = []
     for city in CITIES:
         result.append(get_avg_tmp_per_day(city))
 
-    return result
+    return {'data': result}
 
 
-def get_lowest_humid():
+def get_lowest_humid(request):
     lowest_humidity = {
         'city': 'NA',
         'time': 'NA',
@@ -77,10 +76,11 @@ def get_lowest_humid():
                 'humidity': min_in_city['humidity'],
             }
 
-    return lowest_humidity
+    return {'data': lowest_humidity}
 
 
-def feels_like_rank(order_dir='acs'):
+def get_feels_like_rank(request):
+    order = request.args.get('order')
     result = []
     for city in CITIES:
         result.append({
@@ -88,5 +88,5 @@ def feels_like_rank(order_dir='acs'):
             'feels_like': get_current_feels_like(city)
         })
 
-    result.sort(key=lambda x: x['feels_like'], reverse=(order_dir == 'desc'))
-    return result
+    result.sort(key=lambda x: x['feels_like'], reverse=(order == 'desc'))
+    return {'data': result}

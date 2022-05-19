@@ -1,6 +1,6 @@
 {
   "main": "handler.py",
   "dependencies": {
-    "serverless-google-cloudfunctions": "^3.1.0"
+    "serverless-google-cloudfunctions": "^3.1.1"
   }
 }

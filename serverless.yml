@@ -1,12 +1,10 @@
-service: bee
+service: bh1
 
 package:
   exclude:
     - node_modules/**
     - .gitignore
     - .git/**
-    - package-lock.json
-    - package.json
 
 plugins:
   - serverless-google-cloudfunctions
@@ -14,11 +12,21 @@ plugins:
 provider:
   name: google
   runtime: python37
-  project: maan-284809
-  credentials: 'C:\Users\meirt\Desktop\maankey.json'
+  project: stageteam27
+  credentials: /Users/meir.levin/Downloads/stageteam27key.json
 
 functions:
+  avg_tmp_per_city_per_day:
+    handler: get_avg_tmp_per_city_per_day
+    events:
+      - http: path
+
+  lowest_humid:
+    handler: get_lowest_humid
+    events:
+      - http: path
+
   feels_like_rank:
-    handler: feels_like_rank
+    handler: get_feels_like_rank
     events:
       - http: path
